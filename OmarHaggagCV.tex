@@ -1,0 +1,76 @@
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+% ModernCV themes
+\moderncvstyle{classic} % Style options: 'casual', 'classic', 'oldstyle', 'banking'
+\moderncvcolor{blue}    % Color options: 'blue', 'orange', 'green', 'red', 'purple', 'grey', 'black'
+
+% Page margins
+\usepackage[scale=0.85]{geometry}
+\setlength{\hintscolumnwidth}{3.2cm} % Width of the column with the dates
+
+% Fonts and Language Configuration (Crucial for system compilation)
+% \usepackage{fontspec}
+\usepackage[english]{babel}
+% \babelfont{rm}{Noto Sans}
+% \babelfont{sf}{Noto Sans}
+
+% Fix for itemize inside cventry
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.5em, nosep, topsep=0pt, partopsep=0pt}
+
+% Personal data (Placeholders for you to fill)
+\name{First}{Last}
+\title{CAD / EDA \& Infrastructure Engineer}
+\phone[mobile]{+20~1X~XXXX~XXXX}
+\email{your.email@example.com}
+\social[linkedin]{linkedin.com/in/yourprofile}
+\social[github]{github.com/yourusername}
+
+\begin{document}
+\makecvtitle
+
+\section{Summary}
+\cvitem{}{Versatile Design Automation (CAD/EDA) and Infrastructure Engineer with over 5 years of experience bridging system administration, software engineering, and hardware design. Proven expertise in deploying and maintaining complete IC design environments, supporting advanced Analog/Digital flows (up to 2nm nodes), and architecting automation solutions. Passionate about leveraging AI and scripting to optimize workflows, resolve complex EDA bottlenecks, and unify cross-project environments.}
+
+\section{Professional Experience}
+
+% \cventry rule: exactly 6 arguments {Year}{Job Title}{Company}{City}{Grade}{Description}
+\cventry{2020--Present}{EDA \& Infrastructure Engineer}{Company IC}{Cairo, Egypt}{}{
+\begin{itemize}
+    \item \textbf{System \& Infrastructure Admin:} Setup and maintained Linux servers for 100-200 users. Configured OS, managed user quotas/permissions, and established data governance groups. Deployed local LLMs (Ollama, Qwen7b) for internal AI assistance.
+    \item \textbf{EDA Tools Management:} Led the installation, configuration, and verification of commercial and open-source EDA tools.
+    \item \textbf{Analog Flow Support:} Supported schematic design and simulation. Managed testbenches (TBs) across diverse processes including TSMC (40nm to 2nm), Samsung (8nm to 2nm), GlobalFoundries (180nm to 8nm), and Skywater130. Handled performance simulations (DC, AC, Transient, Monte Carlo) and reliability analysis (EMIR, Aging).
+    \item \textbf{Layout \& PnR Support:} Addressed tool performance bottlenecks and automated analog layout workflows. Mapped foundry layers to internal unified layers (especially for RF devices). Debugged DRC, LVS, RC Extraction, and PERC issues, and resolved PCell challenges to enable seamless project porting.
+    \item \textbf{Automation \& GUI Development:} Developed Python-based GUIs to streamline both CAD and Analog Layout flows. Engineered Bash/Python scripts for Git/Perforce version control automation and robust multi-site file transfers.
+    \item \textbf{AI-Assisted Development:} Utilized AI coding agents (VSCode, Cline, Continue, Google AI Studio) to accelerate tool automation and internal script development.
+\end{itemize}}
+
+\cventry{2019--2020}{Hardware Engineer}{Company HW}{Cairo, Egypt}{}{
+\begin{itemize}
+    \item \textbf{Hardware Design:} Designed and tested power electronics circuits including Buck, Boost, Inverters, and Rectifiers.
+    \item \textbf{Circuit Analysis:} Participated in system-level hardware troubleshooting and foundational RF preparation before transitioning to the IC industry.
+\end{itemize}}
+
+\cventry{2015--2024}{Mathematics Educator}{Freelance/Institutions}{Cairo, Egypt}{}{
+\begin{itemize}
+    \item Taught advanced mathematics in parallel with university studies and professional engineering roles.
+    \item Developed strong communication, mentoring, and technical simplification skills, directly applying them to support IC design teams and resolve user EDA issues effectively.
+\end{itemize}}
+
+\section{Technical Skills}
+\cvitem{Analog EDA}{Custom Compiler, ICV, ICVWB, StarRC, PrimeSim (SPICE, XA, EMIR), HSPICE, NanoTime}
+\cvitem{Digital EDA}{VCS, Design Compiler (DC), ICC2, Spyglass, PrimeTime, Tetramax, Certitude, Formality}
+\cvitem{Open Source}{Xschem, Magic, Qucs, OpenLane}
+\cvitem{Foundry Nodes}{TSMC (40nm $\rightarrow$ 2nm), Samsung (8nm $\rightarrow$ 2nm), GF (180nm, 12nm, 8nm), SkyWater130}
+\cvitem{Programming}{Python, C, C++, Bash Scripting, GUI Development}
+\cvitem{IT \& DevOps}{Linux System Admin, Git, Perforce (Helix Core), OS Setup, Data Governance}
+\cvitem{AI Tooling}{Local LLMs (Ollama, Qwen7b), Agentic AI (VSCode, Cline, Continue), Google AI Studio}
+
+\section{Education}
+\cventry{2013--2019}{Bachelor of Science in Engineering}{Cairo University}{Cairo}{}{Major: Electrical/Electronics Engineering.}
+
+\section{Extracurriculars \& Achievements}
+\cvitem{Sports}{Former competitive athlete in Waterpolo and Judo; awarded national athletic excellence points, demonstrating high discipline and long-term commitment.}
+\cvitem{Continuous Learning}{Passionate about adopting emerging technologies (e.g., Local LLMs, Agentic workflows) and applying them to solve complex engineering infrastructure challenges.}
+
+\end{document}
