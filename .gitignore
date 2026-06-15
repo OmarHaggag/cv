@@ -5,3 +5,7 @@
 *.fdb_*
 *.gz
 *.out
+
+# Scripts directory (contains personal rclone credentials and local sync scripts)
+scripts/
+!scripts/.gitkeep
