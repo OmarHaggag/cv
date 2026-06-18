@@ -8,7 +8,7 @@ PDFLATEX = pdflatex
 XELATEX = xelatex
 
 # Google Drive folder ID
-GDRIVE_FOLDER_ID = 1DdHzMrTlvyQfn3j9AEqU9O11s5zEKtDk
+GDRIVE_FOLDER_ID = 1O7ovyiLJ69O1AoHSJT_I9kyIVitfbklc
 
 # Source files
 CV_SRC = OmarHaggagCV.tex
@@ -28,7 +28,7 @@ COVER_PDFS = $(COVER_DIR)/cover_letter_contract_cad.pdf \
              $(COVER_DIR)/cover_letter_permit_power_electronics.pdf
 
 # Default target
-.PHONY: all clean cv cover letters setup
+.PHONY: all clean cv cover letters setup sync install-hooks
 
 all: setup cv letters
 	@echo ""
@@ -44,9 +44,12 @@ setup:
 # Compile CV (stays in root-CV, not in cover)
 cv: $(CV_SRC)
 	@echo "Compiling CV: $<"
-	$(PDFLATEX) -output-directory=$(OUTPUT_DIR) $<
-	$(PDFLATEX) -output-directory=$(OUTPUT_DIR) $<
-	@echo "CV compiled to: $(OUTPUT_DIR)/$(CV_SRC:.tex=.pdf)"
+	$(PDFLATEX) $<
+	$(PDFLATEX) $<
+	@echo "Copying CV to $(OUTPUT_DIR)/"
+	@mkdir -p $(OUTPUT_DIR)
+	@cp $(CV_SRC:.tex=.pdf) $(OUTPUT_DIR)/
+	@echo "CV compiled and copied to: $(OUTPUT_DIR)/$(CV_SRC:.tex=.pdf)"
 
 # Compile all cover letters
 letters: $(COVER_PDFS)
@@ -54,81 +57,87 @@ letters: $(COVER_PDFS)
 # Pattern rules for cover letters
 $(COVER_DIR)/cover_letter_contract_cad.pdf: cad/cover_letter_contract.tex
 	@echo "Compiling: $<"
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	@cp $(COVER_DIR)/cover_letter_contract.pdf $@
-	@rm $(COVER_DIR)/cover_letter_contract.pdf
+	$(PDFLATEX) -output-directory=. $<
+	$(PDFLATEX) -output-directory=. $<
+	@mkdir -p $(COVER_DIR)
+	@cp cover_letter_contract.pdf $@
+	@rm -f cover_letter_contract.pdf cover_letter_contract.aux cover_letter_contract.log cover_letter_contract.out
 
 $(COVER_DIR)/cover_letter_permit_cad.pdf: cad/cover_letter_permit.tex
 	@echo "Compiling: $<"
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	@cp $(COVER_DIR)/cover_letter_permit.pdf $@
-	@rm $(COVER_DIR)/cover_letter_permit.pdf
+	$(PDFLATEX) -output-directory=. $<
+	$(PDFLATEX) -output-directory=. $<
+	@mkdir -p $(COVER_DIR)
+	@cp cover_letter_permit.pdf $@
+	@rm -f cover_letter_permit.pdf cover_letter_permit.aux cover_letter_permit.log cover_letter_permit.out
 
 $(COVER_DIR)/cover_letter_contract_ai.pdf: ai/cover_letter_contract.tex
 	@echo "Compiling: $<"
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	@cp $(COVER_DIR)/cover_letter_contract.pdf $@
-	@rm $(COVER_DIR)/cover_letter_contract.pdf
+	$(PDFLATEX) -output-directory=. $<
+	$(PDFLATEX) -output-directory=. $<
+	@mkdir -p $(COVER_DIR)
+	@cp cover_letter_contract.pdf $@
+	@rm -f cover_letter_contract.pdf cover_letter_contract.aux cover_letter_contract.log cover_letter_contract.out
 
 $(COVER_DIR)/cover_letter_permit_ai.pdf: ai/cover_letter_permit.tex
 	@echo "Compiling: $<"
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	@cp $(COVER_DIR)/cover_letter_permit.pdf $@
-	@rm $(COVER_DIR)/cover_letter_permit.pdf
+	$(PDFLATEX) -output-directory=. $<
+	$(PDFLATEX) -output-directory=. $<
+	@mkdir -p $(COVER_DIR)
+	@cp cover_letter_permit.pdf $@
+	@rm -f cover_letter_permit.pdf cover_letter_permit.aux cover_letter_permit.log cover_letter_permit.out
 
 $(COVER_DIR)/cover_letter_contract_power_electronics.pdf: power_electronics/cover_letter_contract.tex
 	@echo "Compiling: $<"
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	@cp $(COVER_DIR)/cover_letter_contract.pdf $@
-	@rm $(COVER_DIR)/cover_letter_contract.pdf
+	$(PDFLATEX) -output-directory=. $<
+	$(PDFLATEX) -output-directory=. $<
+	@mkdir -p $(COVER_DIR)
+	@cp cover_letter_contract.pdf $@
+	@rm -f cover_letter_contract.pdf cover_letter_contract.aux cover_letter_contract.log cover_letter_contract.out
 
 $(COVER_DIR)/cover_letter_permit_power_electronics.pdf: power_electronics/cover_letter_permit.tex
 	@echo "Compiling: $<"
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	$(PDFLATEX) -output-directory=$(COVER_DIR) $<
-	@cp $(COVER_DIR)/cover_letter_permit.pdf $@
-	@rm $(COVER_DIR)/cover_letter_permit.pdf
+	$(PDFLATEX) -output-directory=. $<
+	$(PDFLATEX) -output-directory=. $<
+	@mkdir -p $(COVER_DIR)
+	@cp cover_letter_permit.pdf $@
+	@rm -f cover_letter_permit.pdf cover_letter_permit.aux cover_letter_permit.log cover_letter_permit.out
 
 # Compile only CAD cover letters
 cad: setup
 	@echo "Compiling CAD cover letters..."
-	$(PDFLATEX) -output-directory=$(COVER_DIR) cad/cover_letter_contract.tex
-	$(PDFLATEX) -output-directory=$(COVER_DIR) cad/cover_letter_contract.tex
-	@cp $(COVER_DIR)/cover_letter_contract.pdf $(COVER_DIR)/cover_letter_contract_cad.pdf
-	@rm $(COVER_DIR)/cover_letter_contract.pdf
-	$(PDFLATEX) -output-directory=$(COVER_DIR) cad/cover_letter_permit.tex
-	$(PDFLATEX) -output-directory=$(COVER_DIR) cad/cover_letter_permit.tex
-	@cp $(COVER_DIR)/cover_letter_permit.pdf $(COVER_DIR)/cover_letter_permit_cad.pdf
-	@rm $(COVER_DIR)/cover_letter_permit.pdf
+	$(PDFLATEX) -output-directory=. cad/cover_letter_contract.tex
+	$(PDFLATEX) -output-directory=. cad/cover_letter_contract.tex
+	@cp cover_letter_contract.pdf $(COVER_DIR)/cover_letter_contract_cad.pdf
+	@rm -f cover_letter_contract.pdf cover_letter_contract.aux cover_letter_contract.log cover_letter_contract.out
+	$(PDFLATEX) -output-directory=. cad/cover_letter_permit.tex
+	$(PDFLATEX) -output-directory=. cad/cover_letter_permit.tex
+	@cp cover_letter_permit.pdf $(COVER_DIR)/cover_letter_permit_cad.pdf
+	@rm -f cover_letter_permit.pdf cover_letter_permit.aux cover_letter_permit.log cover_letter_permit.out
 
 # Compile only AI cover letters
 ai: setup
 	@echo "Compiling AI cover letters..."
-	$(PDFLATEX) -output-directory=$(COVER_DIR) ai/cover_letter_contract.tex
-	$(PDFLATEX) -output-directory=$(COVER_DIR) ai/cover_letter_contract.tex
-	@cp $(COVER_DIR)/cover_letter_contract.pdf $(COVER_DIR)/cover_letter_contract_ai.pdf
-	@rm $(COVER_DIR)/cover_letter_contract.pdf
-	$(PDFLATEX) -output-directory=$(COVER_DIR) ai/cover_letter_permit.tex
-	$(PDFLATEX) -output-directory=$(COVER_DIR) ai/cover_letter_permit.tex
-	@cp $(COVER_DIR)/cover_letter_permit.pdf $(COVER_DIR)/cover_letter_permit_ai.pdf
-	@rm $(COVER_DIR)/cover_letter_permit.pdf
+	$(PDFLATEX) -output-directory=. ai/cover_letter_contract.tex
+	$(PDFLATEX) -output-directory=. ai/cover_letter_contract.tex
+	@cp cover_letter_contract.pdf $(COVER_DIR)/cover_letter_contract_ai.pdf
+	@rm -f cover_letter_contract.pdf cover_letter_contract.aux cover_letter_contract.log cover_letter_contract.out
+	$(PDFLATEX) -output-directory=. ai/cover_letter_permit.tex
+	$(PDFLATEX) -output-directory=. ai/cover_letter_permit.tex
+	@cp cover_letter_permit.pdf $(COVER_DIR)/cover_letter_permit_ai.pdf
+	@rm -f cover_letter_permit.pdf cover_letter_permit.aux cover_letter_permit.log cover_letter_permit.out
 
 # Compile only Power Electronics cover letters
 power_electronics: setup
 	@echo "Compiling Power Electronics cover letters..."
-	$(PDFLATEX) -output-directory=$(COVER_DIR) power_electronics/cover_letter_contract.tex
-	$(PDFLATEX) -output-directory=$(COVER_DIR) power_electronics/cover_letter_contract.tex
-	@cp $(COVER_DIR)/cover_letter_contract.pdf $(COVER_DIR)/cover_letter_contract_power_electronics.pdf
-	@rm $(COVER_DIR)/cover_letter_contract.pdf
-	$(PDFLATEX) -output-directory=$(COVER_DIR) power_electronics/cover_letter_permit.tex
-	$(PDFLATEX) -output-directory=$(COVER_DIR) power_electronics/cover_letter_permit.tex
-	@cp $(COVER_DIR)/cover_letter_permit.pdf $(COVER_DIR)/cover_letter_permit_power_electronics.pdf
-	@rm $(COVER_DIR)/cover_letter_permit.pdf
+	$(PDFLATEX) -output-directory=. power_electronics/cover_letter_contract.tex
+	$(PDFLATEX) -output-directory=. power_electronics/cover_letter_contract.tex
+	@cp cover_letter_contract.pdf $(COVER_DIR)/cover_letter_contract_power_electronics.pdf
+	@rm -f cover_letter_contract.pdf cover_letter_contract.aux cover_letter_contract.log cover_letter_contract.out
+	$(PDFLATEX) -output-directory=. power_electronics/cover_letter_permit.tex
+	$(PDFLATEX) -output-directory=. power_electronics/cover_letter_permit.tex
+	@cp cover_letter_permit.pdf $(COVER_DIR)/cover_letter_permit_power_electronics.pdf
+	@rm -f cover_letter_permit.pdf cover_letter_permit.aux cover_letter_permit.log cover_letter_permit.out
 
 # Clean auxiliary files
 clean:
@@ -142,38 +151,35 @@ cleanall: clean
 	@echo "Removing all generated PDFs..."
 	@rm -f $(OUTPUT_DIR)/*.pdf
 	@rm -f $(COVER_DIR)/*.pdf
-	@echo "All generated files removed."# Sync to Google Drive
-	sync:
-		@echo "=== Syncing to Google Drive ==="
-		@if [ -f ~/personal/cv/scripts/sync_to_drive.sh ]; then \\
-			~/personal/cv/scripts/sync_to_drive.sh; \\
-		else \\
-			echo "❌ Sync script not found."; \\
-			echo "   Run './scripts/setup_rclone.sh' first."; \\
-			exit 1; \\
-		fi
+	@echo "All generated files removed."
 
-	# Install git hooks
-	install-hooks:
-		@echo "Installing git hooks..."
-		@./scripts/install_hooks.sh
+# Sync to Google Drive
+sync:
+	@echo "=== Syncing to Google Drive ==="
+	@./scripts/sync_to_drive.sh
 
-	# Help target
-	help:
-		@echo "Available targets:"
-		@echo "  make all              - Compile CV and all cover letters"
-		@echo "  make cv               - Compile CV only"
-		@echo "  make letters          - Compile all cover letters"
-		@echo "  make cad              - Compile CAD cover letters only"
-		@echo "  make ai               - Compile AI cover letters only"
-		@echo "  make power_electronics - Compile Power Electronics cover letters only"
-		@echo "  make sync             - Sync compiled PDFs to Google Drive"
-		@echo "  make install-hooks    - Install git hooks for auto-sync"
-		@echo "  make clean            - Remove auxiliary files"
-		@echo "  make cleanall         - Remove all generated files including PDFs"
-		@echo "  make help             - Show this help message"
-		@echo ""
-		@echo "Quick workflow:"
-		@echo "  1. Edit your .tex files"
-		@echo "  2. make all            - Compile everything"
-		@echo "  3. git push            - Push to GitHub (auto-syncs to Drive)"
+
+# Install git hooks
+install-hooks:
+	@echo "Installing git hooks..."
+	@./scripts/install_hooks.sh
+
+# Help target
+help:
+	@echo "Available targets:"
+	@echo "  make all              - Compile CV and all cover letters"
+	@echo "  make cv               - Compile CV only"
+	@echo "  make letters          - Compile all cover letters"
+	@echo "  make cad              - Compile CAD cover letters only"
+	@echo "  make ai               - Compile AI cover letters only"
+	@echo "  make power_electronics - Compile Power Electronics cover letters only"
+	@echo "  make sync             - Sync compiled PDFs to Google Drive"
+	@echo "  make install-hooks    - Install git hooks for auto-sync"
+	@echo "  make clean            - Remove auxiliary files"
+	@echo "  make cleanall         - Remove all generated files including PDFs"
+	@echo "  make help             - Show this help message"
+	@echo ""
+	@echo "Quick workflow:"
+	@echo "  1. Edit your .tex files"
+	@echo "  2. make all            - Compile everything"
+	@echo "  3. git push            - Push to GitHub (auto-syncs to Drive)"
